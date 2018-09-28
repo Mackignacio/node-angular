@@ -1,3 +1,38 @@
-<p>
-  user-edit works!
-</p>
+<section class="row container-fluid">
+  <div class="col-md-2" style="padding: 10px 0px 10px 20px;">
+    <h2>Edit&nbsp;User</h2>
+  </div>
+  <div class="col-md-10" style="padding: 10px;">
+    <button class="col-md-2 float-right" mat-raised-button color="accent" (click)="goto('/admin/users/list')">Cancel</button>
+  </div>
+</section>
+
+<section class="content">
+  <mat-card>
+    <h5>Please fill up the form (all fields are required)</h5>
+    <form [formGroup]="form">
+      <div class="edit-user-container">
+        <mat-form-field>
+          <input matInput placeholder="Email" id="Email" class="form-control" formControlName="Email" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="PhoneNumber" id="PhoneNumber" class="form-control" formControlName="PhoneNumber"
+            name="PhoneNumber" required />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Username" id="Username" class="form-control" formControlName="Username" name="Username"
+            required />
+        </mat-form-field>
+      </div>
+      <button type="submit" mat-raised-button color="primary" class="pull-right edit-user-submit" (click)="editUser()"
+        *ngIf="!submitLoading">
+        Finish Editing
+        <mat-icon>send</mat-icon>
+      </button>
+
+      <button mat-raised-button color="primary" class="pull-right edit-user-submit" disabled *ngIf="submitLoading">
+        Loading..
+      </button>
+    </form>
+  </mat-card>
+</section>

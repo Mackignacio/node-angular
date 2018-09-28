@@ -1,3 +1,70 @@
-<p>
-  user-add works!
-</p>
+<section class="row container-fluid">
+  <div class="col-md-2" style="padding: 10px 0px 10px 20px;">
+    <h2>Add&nbsp;User</h2>
+  </div>
+  <div class="col-md-10" style="padding: 10px;">
+    <button class="col-md-2 float-right" mat-raised-button color="accent" (click)="goto('/admin/users/list')">Cancel</button>
+  </div>
+</section>
+
+<section class="content">
+  <mat-card>
+    <h5>Please fill up the form (all fields are required)</h5>
+    <form [formGroup]="form">
+      <div class="add-user-container">
+        <mat-form-field>
+          <mat-select placeholder="Account ID" [(value)]="selectedAccountId">
+            <mat-option *ngFor="let k of accountList" [value]="k._id">
+              {{ k.BusinessName }} ({{ k.AccountId }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-group">
+          <input matInput placeholder="Email" id="Email" class="form-control" formControlName="Email" required />
+          <mat-error *ngIf="(Email.invalid && (Email.dirty || Email.touched)) && Email.hasError('required')">
+            This field is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group">
+          <input type="password" matInput placeholder="Password" id="Password" class="form-control" formControlName="Password"
+            required />
+          <mat-error *ngIf="(Password.invalid && (Password.dirty || Password.touched)) && Password.hasError('required')">
+            This field is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group">
+          <input matInput placeholder="Phone Number" id="PhoneNumber" class="form-control" formControlName="PhoneNumber"
+            required />
+          <mat-error *ngIf="(PhoneNumber.invalid && (PhoneNumber.dirty || PhoneNumber.touched)) && PhoneNumber.hasError('required')">
+            This field is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-group">
+          <input matInput placeholder="Username" id="Username" class="form-control" formControlName="Username" required />
+          <mat-error *ngIf="(Username.invalid && (Username.dirty || Username.touched)) && Username.hasError('required')">
+            This field is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="button-row">
+        <button mat-raised-button color="primary" class="add-user-submit" (click)="addUser()" *ngIf="!submitLoading">
+          Add User
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+
+      <button mat-raised-button color="primary" class="pull-right add-user-submit" disabled *ngIf="submitLoading">
+        Loading..
+      </button>
+    </form>
+  </mat-card>
+</section>

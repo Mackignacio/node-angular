@@ -1,3 +1,84 @@
-<p>
-  user-list works!
-</p>
+<section class="row container-fluid">
+  <div class="col-md-2" style="padding: 10px 0px 10px 20px;">
+    <h2>Users</h2>
+  </div>
+  <div class="col-md-10" style="padding: 10px;">
+    <button class="float-right" mat-raised-button color="primary" (click)="goto('/admin/users/add')">+Add new user</button>
+  </div>
+</section>
+
+<mat-spinner class="center" *ngIf="!hasLoaded"></mat-spinner>
+
+<div *ngIf="(list > 0) && hasLoaded" class="user-table-container">
+
+  <table mat-table matSort [dataSource]="dataSource" class="user-table">
+    <ng-container matColumnDef="Img">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Img </th>
+      <td mat-cell *matCellDef="let element;">
+        <img [src]="element.picture" class="user-avatar">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="no">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+      <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name ? element.name : 'None'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Verified">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Verified </th>
+      <td mat-cell *matCellDef="let element">
+        <a *ngIf="!element.email_verified">
+          <span class="fas fa-times-circle fa-2x"></span>
+        </a>
+        <a *ngIf="element.email_verified">
+          <span class="fas fa-check-square fa-2x"></span>
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        <a class="user-btn-edit btn" matTooltip="Edit user" [routerLink]='["../edit", element.user_id]'>
+          <span class="fa fa-pencil"></span>
+        </a>
+        <a class="user-btn-remove btn" matTooltip="Remove user" (click)="confirmDelete(element)">
+          <span class="fa fa-trash"></span>
+        </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Blocked">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Block </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-slide-toggle [checked]="element.blocked || false" (change)="blockUser(element)"></mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" [showFirstLastButtons]="true" class="user-paginator"></mat-paginator>
+</div>
+
+<div class="col-lg-12 col-xs-12" class="user-empty-alert" *ngIf="(list === 0) && hasLoaded">
+  <div class="small-box bg-aqua">
+    <div class="inner">
+      <h3>No Users found!</h3>
+      <p>You might want to add one.</p>
+    </div>
+    <div class="icon">
+      <i class="fa fa-user"></i>
+    </div>
+  </div>
+</div>
