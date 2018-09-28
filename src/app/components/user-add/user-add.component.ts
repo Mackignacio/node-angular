@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { DatabaseService } from "../../services/database.service";
-
+import * as toastr from "toastr";
 @Component({
   selector: "app-user-add",
   templateUrl: "./user-add.component.html",

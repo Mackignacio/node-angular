@@ -1,0 +1,12 @@
+add-user-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-user-container>* {
+    width: 100%;
+}
+
+.add-user-submit {
+    margin-top: 5px;
+}
