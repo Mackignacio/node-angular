@@ -4,6 +4,9 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
+// Http
+import { HttpClientModule } from "@angular/common/http";
+
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { UserListComponent } from "./components/user-list/user-list.component";
@@ -14,7 +17,16 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MaterialModule } from "./material.module";
 @NgModule({
   declarations: [AppComponent, UserListComponent, UserAddComponent, UserEditComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MaterialModule, FormsModule, ReactiveFormsModule, MatFormFieldModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    HttpClientModule,
+  ],
   providers: [DatabaseService],
   bootstrap: [AppComponent],
 })
