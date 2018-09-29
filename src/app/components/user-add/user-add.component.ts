@@ -13,45 +13,47 @@ export class UserAddComponent implements OnInit {
   form: FormGroup;
   loading: Boolean = false;
   data = {
-    Password: "",
-    Email: "",
-    PhoneNumber: "",
+    Name: "",
+    Type: "",
     Username: "",
+    Password: ""
   };
-  accountList: any;
-  selectedAccountId: any;
+
+
+  userTypes=["User","Admin","Finance"];
+  selectedType= "User";
 
   constructor(private router: Router, private db: DatabaseService) {
     this.createForm();
   }
 
   ngOnInit(): void {
-    this.getAccountList();
+    //this.getAccountList();
   }
 
   createForm() {
     this.form = new FormGroup({
-      Email: new FormControl(this.data.Email, [Validators.required, this.validateLetters]),
-      Password: new FormControl(this.data.Password, [Validators.required, this.validatePassword]),
-      PhoneNumber: new FormControl(this.data.PhoneNumber, [Validators.required]),
+      Name: new FormControl(this.data.Name, [Validators.required, this.validateLetters]),
+      Type: new FormControl(this.data.Type, [Validators.required, this.validatePassword]),
       Username: new FormControl(this.data.Username, [Validators.required]),
+      Password: new FormControl(this.data.Password, [Validators.required]),
     });
   }
 
-  get Email() {
-    return this.form.get("Email");
+  get Name() {
+    return this.form.get("Name");
   }
 
-  get Password() {
-    return this.form.get("Password");
-  }
-
-  get PhoneNumber() {
-    return this.form.get("PhoneNumber");
+  get Type() {
+    return this.form.get("Type");
   }
 
   get Username() {
     return this.form.get("Username");
+  }
+
+  get Password() {
+    return this.form.get("Password");
   }
 
   validateLetters(controls) {
@@ -86,19 +88,20 @@ export class UserAddComponent implements OnInit {
     this.submitLoading = true;
 
     const userData = {
-      email: this.form.controls["Email"].value,
-      password: this.form.controls["Password"].value,
-      phoneNumber: this.form.controls["PhoneNumber"].value,
+      name: this.form.controls["Name"].value,
+      type: this.selectedType,
       username: this.form.controls["Username"].value,
-      accountId: this.selectedAccountId,
-      connection: "Username-Password-Authentication",
+      password: this.form.controls["Password"].value,
     };
 
-    this.db.post("", userData).subscribe(
+
+    console.log(userData);
+    this.db.post("user", userData).subscribe(  
       (data: any) => {
+        console.log(userData);
         this.cleanForm();
         toastr.success("User Created");
-        this.router.navigate(["/admin/users/list"]);
+        this.router.navigate(["/list"]);
       },
       (error: any) => {
         this.submitLoading = false;
@@ -110,12 +113,6 @@ export class UserAddComponent implements OnInit {
           toastr.error(`Something went wrong`);
         }
       }
-    );
-  }
-
-  getAccountList() {
-    this.db.get(`accounts`).subscribe((res: any) => {
-      this.accountList = res.data;
-    });
+    ); 
   }
 }

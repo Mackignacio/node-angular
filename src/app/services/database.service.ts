@@ -19,15 +19,15 @@ export class DatabaseService {
   }
 
   public post(uri: string, value) {
-    return this.http.post(`${this.API_URL}${uri}`, value, this.httpOptions).pipe(catchError(this.handleError));
+    return this.http.post(`${this.API_URL}${uri}`, value).pipe(catchError(this.handleError));
   }
 
   public get(uri: string) {
-    return this.http.get(this.API_URL + uri, this.httpOptions).pipe(catchError(this.handleError));
+    return this.http.get(this.API_URL + uri).pipe(catchError(this.handleError));
   }
 
   public put(uri: string, value) {
-    return this.http.put(this.API_URL + uri, value, this.httpOptions);
+    return this.http.put(this.API_URL + uri, value);
   }
 
   public delete(uri: string, value?: any) {
@@ -35,6 +35,6 @@ export class DatabaseService {
   }
 
   public patch(uri: string, value) {
-    return this.http.patch(this.API_URL + uri, value, this.httpOptions).pipe(catchError(this.handleError));
+    return this.http.patch(this.API_URL + uri, value).pipe(catchError(this.handleError));
   }
 }

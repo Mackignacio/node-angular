@@ -15,7 +15,7 @@ export class UserListComponent implements OnInit {
   message = "";
   list: any = 0;
   users: any = [];
-  displayedColumns = ["Img", "no", "Name", "Email", "Verified", "Actions", "Blocked"];
+  displayedColumns = ["name","type","username","password","Action"];
   selectedFilter: any = {
     type: "",
     value: "",
@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUserList() {
-    this.db.get("").subscribe(
+    this.db.get("user").subscribe(
       (res: any) => {
         if (res && res.length) {
           this.setTable(res);

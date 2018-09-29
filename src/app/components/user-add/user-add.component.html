@@ -13,46 +13,35 @@
     <form [formGroup]="form">
       <div class="add-user-container">
         <mat-form-field>
-          <mat-select placeholder="Account ID" [(value)]="selectedAccountId">
-            <mat-option *ngFor="let k of accountList" [value]="k._id">
-              {{ k.BusinessName }} ({{ k.AccountId }})
+          <mat-select placeholder="Type" [(value)]="selectedType">
+            <mat-option *ngFor="let k of userTypes" [value]="k">
+              {{ k }} 
             </mat-option>
           </mat-select>
         </mat-form-field>
-
+      
         <mat-form-field class="form-group">
-          <input matInput placeholder="Email" id="Email" class="form-control" formControlName="Email" required />
-          <mat-error *ngIf="(Email.invalid && (Email.dirty || Email.touched)) && Email.hasError('required')">
-            This field is
-            <strong>required</strong>
-          </mat-error>
+            <input matInput placeholder="Name" id="Name" class="form-control" formControlName="Name" required />
+            <mat-error *ngIf="(Name.invalid && (Name.dirty || Name.touched)) && Name.hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="form-group">
-          <input type="password" matInput placeholder="Password" id="Password" class="form-control" formControlName="Password"
-            required />
-          <mat-error *ngIf="(Password.invalid && (Password.dirty || Password.touched)) && Password.hasError('required')">
-            This field is
-            <strong>required</strong>
-          </mat-error>
+            <input matInput placeholder="Username" id="Username" class="form-control" formControlName="Username" required />
+            <mat-error *ngIf="(Username.invalid && (Username.dirty || Username.touched)) && Username.hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="form-group">
-          <input matInput placeholder="Phone Number" id="PhoneNumber" class="form-control" formControlName="PhoneNumber"
-            required />
-          <mat-error *ngIf="(PhoneNumber.invalid && (PhoneNumber.dirty || PhoneNumber.touched)) && PhoneNumber.hasError('required')">
-            This field is
-            <strong>required</strong>
-          </mat-error>
+            <input matInput type="password" placeholder="Password" id="Password" class="form-control" formControlName="Password" required />
+            <mat-error *ngIf="(Name.invalid && (Name.dirty || Name.touched)) && Name.hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="form-group">
-          <input matInput placeholder="Username" id="Username" class="form-control" formControlName="Username" required />
-          <mat-error *ngIf="(Username.invalid && (Username.dirty || Username.touched)) && Username.hasError('required')">
-            This field is
-            <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+
       </div>
 
       <div class="button-row">
